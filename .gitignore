@@ -1,0 +1,9 @@
+# Ignore original heavy images
+images/
+images_original/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/

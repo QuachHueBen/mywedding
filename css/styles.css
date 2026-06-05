@@ -1,0 +1,429 @@
+/* HueBen: Reset CSS và khai báo biến toàn cục */
+:root {
+    --primary-color: #f8f5f2; /* Màu kem nhạt cho nền */
+    --secondary-color: #dcbfa6; /* Màu vàng hồng/be */
+    --text-dark: #4a4a4a; /* Xám đậm cho chữ */
+    --text-light: #ffffff;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Lato', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-dark);
+    background-color: var(--primary-color);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: normal;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-padding {
+    padding: 80px 0;
+}
+
+.bg-light {
+    background-color: #fff;
+}
+
+/* Đảm bảo khi cuộn đến id thì không bị dính sát mép trên */
+section[id] {
+    scroll-margin-top: 50px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: var(--text-dark);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background-color: var(--secondary-color);
+    margin: 15px auto 0;
+}
+
+/* ================== Hero Section ================== */
+/* HueBen: Hero Section với ảnh nền full width, overlay tối nhẹ */
+.hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-light);
+    background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+}
+
+.hero-names {
+    font-size: 5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    letter-spacing: 2px;
+}
+
+.hero-date {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-family: var(--font-heading);
+}
+
+.hero-quote {
+    font-size: 1.2rem;
+    font-style: italic;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+.scroll-down {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-light);
+    font-size: 2rem;
+    text-decoration: none;
+    animation: bounce 2s infinite;
+    z-index: 1;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+    40% { transform: translateY(-20px) translateX(-50%); }
+    60% { transform: translateY(-10px) translateX(-50%); }
+}
+
+/* ================== Our Story Section ================== */
+/* HueBen: Layout hiển thị câu chuyện tình yêu */
+.story-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.story-text {
+    max-width: 800px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.story-text p {
+    margin-bottom: 20px;
+}
+
+.story-images {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.story-img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.story-img:hover {
+    transform: translateY(-5px);
+}
+
+/* ================== Gallery Section (Masonry) ================== */
+/* HueBen: CSS Masonry Grid cho thư viện ảnh */
+.masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+}
+
+.masonry-grid:not(.show-all) .grid-item:nth-child(n+13) {
+    display: none;
+}
+
+.grid-item {
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 1;
+}
+
+.grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.grid-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(220, 191, 166, 0.3); /* secondary-color with opacity */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.grid-item:hover img {
+    transform: scale(1.05);
+}
+
+.grid-item:hover::before {
+    opacity: 1;
+}
+
+/* Nút Xem chi tiết */
+.view-all-container {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.btn-view-all {
+    background-color: var(--secondary-color);
+    color: var(--text-dark);
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-family: var(--font-body);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.btn-view-all:hover {
+    background-color: #c8a78c;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* ================== Video Section ================== */
+/* HueBen: Grid layout cho 2 video */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ================== Footer ================== */
+/* HueBen: Footer thiết kế tối giản */
+.footer {
+    background-color: var(--text-dark);
+    color: var(--text-light);
+    text-align: center;
+    padding: 60px 0;
+}
+
+.footer-names {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+}
+
+.footer-date {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    opacity: 0.7;
+}
+
+/* ================== Lightbox Modal ================== */
+/* HueBen: Lightbox overlay hiển thị ảnh gốc */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.lightbox-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 80vh;
+    object-fit: contain;
+    animation: zoom 0.3s ease;
+}
+
+@keyframes zoom {
+    from {transform: scale(0.9); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    color: var(--secondary-color);
+}
+
+.prev-btn, .next-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+    transition: 0.3s;
+    user-select: none;
+    background: rgba(0,0,0,0.5);
+    border: none;
+    border-radius: 5px;
+}
+
+.prev-btn {
+    left: 20px;
+}
+
+.next-btn {
+    right: 20px;
+}
+
+.prev-btn:hover, .next-btn:hover {
+    background-color: rgba(0,0,0,0.8);
+    color: var(--secondary-color);
+}
+
+/* ================== Responsive Design ================== */
+@media (max-width: 992px) {
+    .masonry-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .masonry-grid:not(.show-all) .grid-item:nth-child(n+9) {
+        display: none;
+    }
+    
+    /* HueBen: Chuyển về 1 cột video trên tablet/mobile */
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .masonry-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .masonry-grid:not(.show-all) .grid-item:nth-child(n+7) {
+        display: none;
+    }
+    .hero-names {
+        font-size: 3.5rem;
+    }
+    .hero-date {
+        font-size: 1.2rem;
+    }
+    .section-padding {
+        padding: 50px 0;
+    }
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .masonry-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .masonry-grid:not(.show-all) .grid-item:nth-child(n+5) {
+        display: none;
+    }
+    .hero-names {
+        font-size: 2.5rem;
+    }
+    .story-img {
+        max-width: 100%;
+    }
+    /* Ẩn nút mũi tên trên điện thoại vì đã có vuốt (swipe) */
+    .prev-btn, .next-btn {
+        display: none;
+    }
+}
